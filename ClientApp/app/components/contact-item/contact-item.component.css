@@ -1,0 +1,15 @@
+﻿.module {
+    padding: 20px;
+    text-align: inherit;
+    color: #607D8B;
+    max-height: 120px;
+    min-width: 20px;
+    background-color: #EEE;
+    border-radius: 2px;
+}
+
+.module:hover {
+    background-color: #607D8B;
+    cursor: pointer;
+    color: #eee;
+}

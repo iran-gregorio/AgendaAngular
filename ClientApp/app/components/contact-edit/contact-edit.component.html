@@ -1,0 +1,72 @@
+﻿<div class="container" *ngIf="contato">
+    <h1>Dados Pessoais</h1>
+    <form #contatoForm="ngForm">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome"
+                   required
+                   [(ngModel)]="contato.nome" name="nome"
+                   #nome="ngModel">
+            <div [hidden]="nome.valid || nome.pristine"
+                 class="alert alert-danger">
+                Nome requerido
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="endereco">Endereco</label>
+            <input type="text" class="form-control" id="endereco"
+                   [(ngModel)]="contato.endereco" name="endereco">
+        </div>
+
+        <div class="form-group">
+            <label for="empresa">Empresa</label>
+            <input type="text" class="form-control" id="empresa"
+                   [(ngModel)]="contato.empresa" name="empresa">
+        </div>
+
+    </form>
+
+    <h1>Telefones</h1>
+
+    <form #telefoneForm="ngForm" class="form-inline">
+        <div *ngFor="let telefone of contato.telefoneList; let i = index">
+            <select class="form-control" id="categoriaTel"
+                    [(ngModel)]="telefone.categoria" name="categoriaTel--{{i}}">
+                <option [value]="1">Casa</option>
+                <option [value]="2">Trabalho</option>
+                <option [value]="3">Outro</option>
+            </select>
+            <input type="tel" class="form-control" 
+                   [(ngModel)]="telefone.numero" name="telefone--{{i}}" required
+                   [textMask]="{mask: mask, guide: false, showMask: False}"/>
+            <button type="button" class="btn btn-danger" (click)="remTelefone(telefone)">Remover</button>
+        </div>
+        <br />
+        <button type="button" class="btn btn-default" (click)="addTelefone()">Adicionar Telefone</button>
+    </form>
+
+    <h1>Emails</h1>
+
+    <form #emailForm="ngForm" class="form-inline">
+        <div classe="input-group" *ngFor="let email of contato.emailList; let i = index">
+            <select class="form-control" id="categoriaEmail"
+                    [(ngModel)]="email.categoria" name="categoriaEmail--{{i}}">
+                <option [value]="1">Casa</option>
+                <option [value]="2">Trabalho</option>
+                <option [value]="3">Outro</option>
+            </select>
+            <input type="email" class="form-control"
+                   [(ngModel)]="email.endereco" name="email--{{i}}" />
+            <button type="button" class="btn btn-danger" (click)="remEmail(email)">Remover</button>
+        </div>
+        <br />
+        <button type="button" class="btn btn-default" (click)="addEmail()">Adicionar Email</button>
+    </form>
+
+    <br />
+
+    <button type="submit" class="btn btn-success" [disabled]="!contatoForm.valid || !telefoneForm.valid" (click)="salvar()">Salvar</button>
+    <button type="button" class="btn btn-default" [routerLink]="['/home']">Cancelar</button>
+    <button type="button" class="btn btn-danger" *ngIf="contato.id > 0" (click)="excluir()">Excluir</button>
+</div>

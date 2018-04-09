@@ -1,0 +1,20 @@
+<h1>Agenda</h1>
+<form class="form-inline">
+    <div class="input-group">
+        <input type="text" class="form-control" size="50" placeholder="Pesquisar" #filter (keyup)="handleFilterChange(filter.value)">
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-primary" [routerLink]="['/contact-edit', 0]">Adicionar</button>
+        </div>
+    </div>
+</form>
+
+<p *ngIf="!contactList"><em>Carregando...</em></p>
+
+<div *ngIf="contactList">
+    <h3>Contatos</h3>
+    <contact-item *ngFor="let contact of contactList"
+                  [contato]="contact"
+                  [routerLink]="['/contact-edit', contact.id]">
+    </contact-item>
+    <h4 *ngIf="contactList?.length == 0">Registro nao encontrado</h4>
+</div>

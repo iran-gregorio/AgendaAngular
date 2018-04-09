@@ -1,0 +1,7 @@
+﻿<div class="module">
+    <h4>{{contato.nome}}</h4>
+    <ul>
+        <li>Telefone: {{contato.telefoneList[0].numero}} - {{contato.telefoneList[0].categoria | enum}}</li>
+        <li *ngIf="contato.emailList?.length > 0">Email: {{contato.emailList[0].endereco}} - {{contato.emailList[0].categoria | enum}}</li>
+    </ul>
+</div>
