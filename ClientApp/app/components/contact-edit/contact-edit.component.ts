@@ -12,10 +12,16 @@ import { rootRoute } from '@angular/router/src/router_module';
 export class ContactEditComponent {
     contato: Contato;
     id: number;
-    public mask = ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
     constructor(route: ActivatedRoute, private contatoService: ContatoService, private router: Router) {
         this.id = route.snapshot.params['id'];
+    }
+
+    mask(rawValue = '') {
+        if (rawValue.length > 14)
+            return ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+        else
+            return ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
     }
 
     ngOnInit() {

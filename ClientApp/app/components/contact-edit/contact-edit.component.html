@@ -37,10 +37,14 @@
                 <option [value]="2">Trabalho</option>
                 <option [value]="3">Outro</option>
             </select>
-            <input type="tel" class="form-control" 
-                   [(ngModel)]="telefone.numero" name="telefone--{{i}}" required
-                   [textMask]="{mask: mask, guide: false, showMask: False}"/>
+            <input type="tel" class="form-control" #telR="ngModel"
+                   [(ngModel)]="telefone.numero" name="telefone--{{i}}" required pattern="^(\([1-9]{2}\) [1-9][0-9]{4}-[0-9]{4})|(\([1-9]{2}\) [1-9]{4}-[0-9]{4})$"
+                   [textMask]="{mask: mask, guide: false, showMask: False}" />
             <button type="button" class="btn btn-danger" (click)="remTelefone(telefone)">Remover</button>
+            <div [hidden]="telR.valid || telR.pristine"
+                 class="alert alert-danger">
+                Telefone invalido
+            </div>
         </div>
         <br />
         <button type="button" class="btn btn-default" (click)="addTelefone()">Adicionar Telefone</button>
@@ -56,9 +60,13 @@
                 <option [value]="2">Trabalho</option>
                 <option [value]="3">Outro</option>
             </select>
-            <input type="email" class="form-control"
-                   [(ngModel)]="email.endereco" name="email--{{i}}" />
+            <input type="email" class="form-control" #emailR="ngModel"
+                   [(ngModel)]="email.endereco" name="email--{{i}}" ngModel email />
             <button type="button" class="btn btn-danger" (click)="remEmail(email)">Remover</button>
+            <div [hidden]="emailR.valid || emailR.pristine"
+                 class="alert alert-danger">
+                Email invalido
+            </div>
         </div>
         <br />
         <button type="button" class="btn btn-default" (click)="addEmail()">Adicionar Email</button>
@@ -66,7 +74,7 @@
 
     <br />
 
-    <button type="submit" class="btn btn-success" [disabled]="!contatoForm.valid || !telefoneForm.valid" (click)="salvar()">Salvar</button>
+    <button type="submit" class="btn btn-success" [disabled]="!contatoForm.valid || !telefoneForm.valid || !emailForm.valid" (click)="salvar()">Salvar</button>
     <button type="button" class="btn btn-default" [routerLink]="['/home']">Cancelar</button>
     <button type="button" class="btn btn-danger" *ngIf="contato.id > 0" (click)="excluir()">Excluir</button>
 </div>
